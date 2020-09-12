@@ -1,0 +1,23 @@
+@import url("https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css");
+
+/* import Libre Franklin font family  */
+@import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600;700;900&display=swap');
+
+/* import Roboto font family */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+/* import PlayFair Display font family */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&display=swap');
+
+html {
+  scroll-behavior: smooth;
+}
+
+.updateLinkDiv {
+  background: #283033;
+  transition: background-color 0.3s ease-out;
+}
+
+.updateLinkDiv:hover {
+  background-color: #D12D4A;
+}
