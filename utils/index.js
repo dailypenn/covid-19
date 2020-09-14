@@ -1,7 +1,7 @@
 import moment from 'moment'
 
 export const IMAGE_URL = (attachment_uuid, extension) =>
-  `https://snworksceo.imgix.net/dpn/${attachment_uuid}.sized-1000x1000.${extension}?w=1000`
+  `https://s3.amazonaws.com/snwceomedia/dpn/${attachment_uuid}.sized-1000x1000.${extension}?w=1000`
 
 export const STREET_IMAGE_URL = (attachment_uuid, extension) =>
 `https://snworksceo.imgix.net/dpn-34s/${attachment_uuid}.sized-1000x1000.${extension}?w=1000`
