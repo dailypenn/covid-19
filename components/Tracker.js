@@ -63,7 +63,7 @@ const Tracker = () => {
         labels: results[0]["Dates"].map(date => `${new Date(date).getMonth()+1}/${new Date(date).getDate()}`),
         datasets: [
           {
-            label: 'Daily Count',
+            label: 'Weekly Count',
             fill: false,
             lineTension: 0.1,
             backgroundColor: 'rgba(75,192,192,0.4)',
