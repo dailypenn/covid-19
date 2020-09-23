@@ -24,7 +24,7 @@ const NewsLetterWrapper = s.div`
 `
 
 const NewsLetter = () => (
-  <StyledAnchor href="https://www.thedp.com/page/subscribe-dear-penn" target="_blank">
+  <StyledAnchor href="https://thedp.us2.list-manage.com/subscribe?u=a96885e3aa3f8131c872ee329&id=370b4800ba" target="_blank">
     <NewsLetterWrapper>
       <div className="row newsletter">
         <div className="col">
