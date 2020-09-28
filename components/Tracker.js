@@ -53,70 +53,52 @@ const GraphNumberBubble = s.div`
 `
 
 const Tracker = () => {
+  const graphData = (state, dates, label, color, dataInput) => {
+    // console.log(state, dates, label, color, dataInput)
+    state({
+      labels: dates.map(date => `${new Date(date).getMonth()+1}/${new Date(date).getDate()}`),
+      datasets: [
+        {
+          label: label,
+          fill: false,
+          lineTension: 0.1,
+          backgroundColor: 'rgba(75,192,192,0.4)',
+          borderColor: color,
+          borderCapStyle: 'butt',
+          borderDash: [],
+          borderDashOffset: 0.0,
+          borderJoinStyle: 'miter',
+          pointBorderColor: color,
+          pointBackgroundColor: '#fff',
+          pointBorderWidth: 1,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: color,
+          pointHoverBorderColor: 'rgba(220,220,220,1)',
+          pointHoverBorderWidth: 2,
+          pointRadius: 3,
+          pointHitRadius: 10,
+          data: dataInput
+        }
+      ]
+    })
+  }
   useEffect(async () => {
     await axios.get('/api/fetch?url=https://recommender.thedp.com/covid').then(resp => {
       const { data: { results } } = resp
       const [ { Tests_Done_Cumulative, Positive_Cases_Cumulative }, _ ] = results
       setCumulativeCases(Positive_Cases_Cumulative[Positive_Cases_Cumulative.length - 1])
       setCumulativeTests(Tests_Done_Cumulative[Tests_Done_Cumulative.length - 1])
-      setCaseData({
-        labels: results[0]["Dates"].map(date => `${new Date(date).getMonth()+1}/${new Date(date).getDate()}`),
-        datasets: [
-          {
-            label: 'Weekly Count',
-            fill: false,
-            lineTension: 0.1,
-            backgroundColor: 'rgba(75,192,192,0.4)',
-            borderColor: '#D12D4A',
-            borderCapStyle: 'butt',
-            borderDash: [],
-            borderDashOffset: 0.0,
-            borderJoinStyle: 'miter',
-            pointBorderColor: '#D12D4A',
-            pointBackgroundColor: '#fff',
-            pointBorderWidth: 1,
-            pointHoverRadius: 5,
-            pointHoverBackgroundColor: '#D12D4A',
-            pointHoverBorderColor: 'rgba(220,220,220,1)',
-            pointHoverBorderWidth: 2,
-            pointRadius: 3,
-            pointHitRadius: 10,
-            data: results[0]["Positive_Cases"]
-          }
-        ]
-      })
+      graphData(setCaseData, results[0]["Dates"], 'Weekly Count', '#D12D4A', results[0]["Positive_Cases"])
+      var rate = results[0]["Positive_Cases"]
+      rate = rate.map((num, idx) => (num/results[0]["Tests_Done"][idx] * 100).toFixed(2))
+      graphData(setPositiveRateData, results[0]["Dates"], 'Weekly Postive Rate (%)', '#D12D4A', rate)
     })
 
     await axios.get('/api/fetch?url=https://recommender.thedp.com/covidtotal').then(resp => {
       const { data } = resp
       setTotalCases(data["confirmed"][data["confirmed"].length - 1])
       setTotalCasesDate(data['timestamp'][data['timestamp'].length - 1])
-      setCumulativeData({
-        labels: data["timestamp"].map(date => `${new Date(date + 'T00:00:00').getMonth()+1}/${new Date(date+ 'T00:00:00').getDate()}`),
-        datasets: [
-          {
-            label: 'Cumulative',
-            fill: false,
-            lineTension: 0.1,
-            backgroundColor: 'rgba(75,192,192,0.4)',
-            borderColor: 'rgba(75,192,192,1)',
-            borderCapStyle: 'butt',
-            borderDash: [],
-            borderDashOffset: 0.0,
-            borderJoinStyle: 'miter',
-            pointBorderColor: 'rgba(75,192,192,1)',
-            pointBackgroundColor: '#fff',
-            pointBorderWidth: 1,
-            pointHoverRadius: 5,
-            pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-            pointHoverBorderColor: 'rgba(220,220,220,1)',
-            pointHoverBorderWidth: 2,
-            pointRadius: 3,
-            pointHitRadius: 10,
-            data: data["confirmed"]
-          }
-        ]
-      })
+      graphData(setCumulativeData, data["timestamp"], 'Cumulative', 'rgba(75,192,192,1)', data["confirmed"])
     })
   }, [])
 
@@ -130,13 +112,23 @@ const Tracker = () => {
   const [totalCases, setTotalCases] = useState(null)
   const [totalCasesDate, setTotalCasesDate] = useState(null)
 
+  const [positiveRateData, setPositiveRateData] = useState({})
+
   return (
     <GraphWrapper>
       <div className="row">
         <div className="col-md-8" style= {{ textAlign: "center" }}>
-          <GraphTitle>{graphState == 'DAILY' ? 'Positive COVID-19 Cases at Penn': 'Confirmed/Probable COVID-19 Cases Among Penn Students'}</GraphTitle>
+          <GraphTitle>{graphState == 'DAILY' 
+            ? 'Positive COVID-19 Cases at Penn'
+            : graphState == 'CUMULATIVE'
+              ? 'Confirmed/Probable COVID-19 Cases Among Penn Students'
+              : 'Percent of Positive Cases'}</GraphTitle>
           <Line
-            data={graphState == 'DAILY' ? caseData: cumulativeData}
+            data={graphState == 'DAILY' 
+              ? caseData
+              : graphState == 'CUMULATIVE'
+                ? cumulativeData
+                : positiveRateData}
             options={{ legend: { display: false } }}
           />
           <p style={{ fontSize: '90%', margin: '1rem 0' }}>
@@ -148,7 +140,7 @@ const Tracker = () => {
                 type="button"
                 className="btn btn-outline-secondary graph-button"
                 onClick = {() => setGraphState('DAILY')}
-                style={{ marginRight: '1rem' }}
+                style={{ marginRight: '1rem', marginBottom: '1rem'}}
               >
                 Weekly Cases
               </button>
@@ -157,7 +149,15 @@ const Tracker = () => {
               <button
                 type="button"
                 className="btn btn-outline-secondary graph-button"
-                onClick = {() => setGraphState('CUMULATIVE')}>Cumulative Cases
+                onClick = {() => setGraphState('CUMULATIVE')}
+                style={{ marginRight: '1rem' , marginBottom: '1rem'}}>Cumulative Cases
+              </button>
+            </ButtonWrapper>
+            <ButtonWrapper color="#D12D4A">
+              <button
+                type="button"
+                className="btn btn-outline-secondary graph-button"
+                onClick = {() => setGraphState('RATE')}>Percent Positive
               </button>
             </ButtonWrapper>
           </div>
