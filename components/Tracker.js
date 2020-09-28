@@ -53,7 +53,7 @@ const GraphNumberBubble = s.div`
 `
 
 const graphData = (dates, label, color, data) => ({
-  labels: dates.map(date => `${new Date(date).getMonth()+1}/${new Date(date).getDate()}`),
+  labels: dates.map(date => `${new Date(date + 'T00:00:00').getMonth()+1}/${new Date(date + 'T00:00:00').getDate()}`),
   datasets: [
     {
       label,
@@ -79,28 +79,34 @@ const graphData = (dates, label, color, data) => ({
   ]
 })
 
+const graphOptions = graphState => {
+  if (graphState === 'RATE') {
+    return {
+      legend: { display: false },
+      tooltips: {
+        callbacks: { label: tooltipItem => `Weekly Positivity Rate: ${tooltipItem.yLabel}%` }
+      }
+    }
+  }
+  
+  if (graphState === 'DAILY') {
+    return {
+      legend: { display: false },
+      tooltips: {
+        callbacks: { label: tooltipItem => `Weekly Count: ${tooltipItem.yLabel}` }
+      }
+    }
+  }
+
+  return {
+    legend: { display: false },
+    tooltips: {
+      callbacks: { label: tooltipItem => `Cumulative: ${tooltipItem.yLabel}` }
+    }
+  }
+}
+
 const Tracker = () => {
-  useEffect(async () => {
-    await axios.get('/api/fetch?url=https://recommender.thedp.com/covid').then(resp => {
-      const { data: { results } } = resp
-      const [ { Tests_Done_Cumulative, Positive_Cases_Cumulative }, _ ] = results
-      setCumulativeCases(Positive_Cases_Cumulative[Positive_Cases_Cumulative.length - 1])
-      setCumulativeTests(Tests_Done_Cumulative[Tests_Done_Cumulative.length - 1])
-      setCaseData(graphData(results[0]["Dates"], 'Weekly Count', '#D12D4A', results[0]["Positive_Cases"]))
-      
-      let rate = results[0]["Positive_Cases"]
-      rate = rate.map((num, idx) => (num/results[0]["Tests_Done"][idx] * 100).toFixed(2))
-      setPositiveRateData(graphData(results[0]["Dates"], 'Weekly Postive Rate (%)', '#D12D4A', rate))
-    })
-
-    await axios.get('/api/fetch?url=https://recommender.thedp.com/covidtotal').then(resp => {
-      const { data } = resp
-      setTotalCases(data["confirmed"][data["confirmed"].length - 1])
-      setTotalCasesDate(data['timestamp'][data['timestamp'].length - 1])
-      setCumulativeData(graphData(data["timestamp"], 'Cumulative', 'rgba(75,192,192,1)', data["confirmed"]))
-    })
-  }, [])
-
   const [graphState, setGraphState] = useState('DAILY')
 
   const [caseData, setCaseData] = useState({})
@@ -113,6 +119,27 @@ const Tracker = () => {
 
   const [positiveRateData, setPositiveRateData] = useState({})
 
+  useEffect(async () => {
+    await axios.get('/api/fetch?url=https://recommender.thedp.com/covid').then(resp => {
+      const { data: { results } } = resp
+      const [ { Tests_Done_Cumulative, Positive_Cases_Cumulative }, _ ] = results
+      setCumulativeCases(Positive_Cases_Cumulative[Positive_Cases_Cumulative.length - 1])
+      setCumulativeTests(Tests_Done_Cumulative[Tests_Done_Cumulative.length - 1])
+      setCaseData(graphData(results[0]["Dates"], 'Weekly Count', '#D12D4A', results[0]["Positive_Cases"]))
+      
+      let rate = results[0]["Positive_Cases"]
+      rate = rate.map((num, idx) => (num/results[0]["Tests_Done"][idx] * 100).toFixed(2))
+      setPositiveRateData(graphData(results[0]["Dates"], 'Cumulative', '#D12D4A', rate))
+    })
+
+    await axios.get('/api/fetch?url=https://recommender.thedp.com/covidtotal').then(resp => {
+      const { data } = resp
+      setTotalCases(data["confirmed"][data["confirmed"].length - 1])
+      setTotalCasesDate(data['timestamp'][data['timestamp'].length - 1])
+      setCumulativeData(graphData(data["timestamp"], 'Positivity', 'rgba(75,192,192,1)', data["confirmed"]))
+    })
+  }, [])
+
   return (
     <GraphWrapper>
       <div className="row">
@@ -121,14 +148,15 @@ const Tracker = () => {
             ? 'Positive COVID-19 Cases at Penn'
             : graphState == 'CUMULATIVE'
               ? 'Confirmed/Probable COVID-19 Cases Among Penn Students'
-              : 'Percent of Positive Cases'}</GraphTitle>
+              : 'Positivity Rates at Penn'}
+          </GraphTitle>
           <Line
             data={graphState == 'DAILY' 
               ? caseData
               : graphState == 'CUMULATIVE'
                 ? cumulativeData
                 : positiveRateData}
-            options={{ legend: { display: false } }}
+            options={graphOptions(graphState)}
           />
           <p style={{ fontSize: '90%', margin: '1rem 0' }}>
             All data points represent statistics from the week ending in the specified date.
@@ -149,14 +177,18 @@ const Tracker = () => {
                 type="button"
                 className="btn btn-outline-secondary graph-button"
                 onClick = {() => setGraphState('CUMULATIVE')}
-                style={{ marginRight: '1rem' , marginBottom: '1rem'}}>Cumulative Cases
+                style={{ marginRight: '1rem' , marginBottom: '1rem'}}
+              >
+                Cumulative Cases
               </button>
             </ButtonWrapper>
             <ButtonWrapper color="#D12D4A">
               <button
                 type="button"
                 className="btn btn-outline-secondary graph-button"
-                onClick = {() => setGraphState('RATE')}>Percent Positive
+                onClick = {() => setGraphState('RATE')}
+              >
+                Weekly Positivity Rates
               </button>
             </ButtonWrapper>
           </div>
