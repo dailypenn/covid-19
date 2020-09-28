@@ -52,53 +52,52 @@ const GraphNumberBubble = s.div`
   color: #D12D4A;
 `
 
+const graphData = (dates, label, color, data) => ({
+  labels: dates.map(date => `${new Date(date).getMonth()+1}/${new Date(date).getDate()}`),
+  datasets: [
+    {
+      label,
+      fill: false,
+      lineTension: 0.1,
+      backgroundColor: 'rgba(75,192,192,0.4)',
+      borderColor: color,
+      borderCapStyle: 'butt',
+      borderDash: [],
+      borderDashOffset: 0.0,
+      borderJoinStyle: 'miter',
+      pointBorderColor: color,
+      pointBackgroundColor: '#fff',
+      pointBorderWidth: 1,
+      pointHoverRadius: 5,
+      pointHoverBackgroundColor: color,
+      pointHoverBorderColor: 'rgba(220,220,220,1)',
+      pointHoverBorderWidth: 2,
+      pointRadius: 3,
+      pointHitRadius: 10,
+      data
+    }
+  ]
+})
+
 const Tracker = () => {
-  const graphData = (state, dates, label, color, dataInput) => {
-    // console.log(state, dates, label, color, dataInput)
-    state({
-      labels: dates.map(date => `${new Date(date).getMonth()+1}/${new Date(date).getDate()}`),
-      datasets: [
-        {
-          label: label,
-          fill: false,
-          lineTension: 0.1,
-          backgroundColor: 'rgba(75,192,192,0.4)',
-          borderColor: color,
-          borderCapStyle: 'butt',
-          borderDash: [],
-          borderDashOffset: 0.0,
-          borderJoinStyle: 'miter',
-          pointBorderColor: color,
-          pointBackgroundColor: '#fff',
-          pointBorderWidth: 1,
-          pointHoverRadius: 5,
-          pointHoverBackgroundColor: color,
-          pointHoverBorderColor: 'rgba(220,220,220,1)',
-          pointHoverBorderWidth: 2,
-          pointRadius: 3,
-          pointHitRadius: 10,
-          data: dataInput
-        }
-      ]
-    })
-  }
   useEffect(async () => {
     await axios.get('/api/fetch?url=https://recommender.thedp.com/covid').then(resp => {
       const { data: { results } } = resp
       const [ { Tests_Done_Cumulative, Positive_Cases_Cumulative }, _ ] = results
       setCumulativeCases(Positive_Cases_Cumulative[Positive_Cases_Cumulative.length - 1])
       setCumulativeTests(Tests_Done_Cumulative[Tests_Done_Cumulative.length - 1])
-      graphData(setCaseData, results[0]["Dates"], 'Weekly Count', '#D12D4A', results[0]["Positive_Cases"])
-      var rate = results[0]["Positive_Cases"]
+      setCaseData(graphData(results[0]["Dates"], 'Weekly Count', '#D12D4A', results[0]["Positive_Cases"]))
+      
+      let rate = results[0]["Positive_Cases"]
       rate = rate.map((num, idx) => (num/results[0]["Tests_Done"][idx] * 100).toFixed(2))
-      graphData(setPositiveRateData, results[0]["Dates"], 'Weekly Postive Rate (%)', '#D12D4A', rate)
+      setPositiveRateData(graphData(results[0]["Dates"], 'Weekly Postive Rate (%)', '#D12D4A', rate))
     })
 
     await axios.get('/api/fetch?url=https://recommender.thedp.com/covidtotal').then(resp => {
       const { data } = resp
       setTotalCases(data["confirmed"][data["confirmed"].length - 1])
       setTotalCasesDate(data['timestamp'][data['timestamp'].length - 1])
-      graphData(setCumulativeData, data["timestamp"], 'Cumulative', 'rgba(75,192,192,1)', data["confirmed"])
+      setCumulativeData(graphData(data["timestamp"], 'Cumulative', 'rgba(75,192,192,1)', data["confirmed"]))
     })
   }, [])
 
