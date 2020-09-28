@@ -158,9 +158,11 @@ const Tracker = () => {
                 : positiveRateData}
             options={graphOptions(graphState)}
           />
-          <p style={{ fontSize: '90%', margin: '1rem 0' }}>
-            All data points represent statistics from the week ending in the specified date.
-          </p>
+          {graphState !== 'CUMULATIVE' && (
+            <p style={{ fontSize: '90%', margin: '1rem 0' }}>
+              All data points represent statistics from the week ending in the specified date.
+            </p>
+          )}
           <div className="row justify-content-center" style={{ marginTop: '1rem' }}>
             <ButtonWrapper color="#D12D4A">
               <button
