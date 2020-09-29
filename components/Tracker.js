@@ -129,7 +129,7 @@ const Tracker = () => {
       
       let rate = results[0]["Positive_Cases"]
       rate = rate.map((num, idx) => (num/results[0]["Tests_Done"][idx] * 100).toFixed(2))
-      setPositiveRateData(graphData(results[0]["Dates"], 'Cumulative', '#D12D4A', rate))
+      setPositiveRateData(graphData(results[0]["Dates"], 'Cumulative', '#d0c541', rate))
     })
 
     await axios.get('/api/fetch?url=https://recommender.thedp.com/covidtotal').then(resp => {
@@ -184,7 +184,7 @@ const Tracker = () => {
                 Cumulative Cases
               </button>
             </ButtonWrapper>
-            <ButtonWrapper color="#D12D4A">
+            <ButtonWrapper color="#d0c541">
               <button
                 type="button"
                 className="btn btn-outline-secondary graph-button"
