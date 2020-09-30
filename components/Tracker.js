@@ -107,7 +107,7 @@ const graphOptions = graphState => {
 }
 
 const Tracker = () => {
-  const [graphState, setGraphState] = useState('DAILY')
+  const [graphState, setGraphState] = useState('CUMULATIVE')
 
   const [caseData, setCaseData] = useState({})
   const [cumulativeCases, setCumulativeCases] = useState(null)
@@ -120,17 +120,17 @@ const Tracker = () => {
   const [positiveRateData, setPositiveRateData] = useState({})
 
   useEffect(async () => {
-    await axios.get('/api/fetch?url=https://recommender.thedp.com/covid').then(resp => {
-      const { data: { results } } = resp
-      const [ { Tests_Done_Cumulative, Positive_Cases_Cumulative }, _ ] = results
-      setCumulativeCases(Positive_Cases_Cumulative[Positive_Cases_Cumulative.length - 1])
-      setCumulativeTests(Tests_Done_Cumulative[Tests_Done_Cumulative.length - 1])
-      setCaseData(graphData(results[0]["Dates"], 'Weekly Count', '#D12D4A', results[0]["Positive_Cases"]))
+    // await axios.get('/api/fetch?url=https://recommender.thedp.com/covid').then(resp => {
+    //   const { data: { results } } = resp
+    //   const [ { Tests_Done_Cumulative, Positive_Cases_Cumulative }, _ ] = results
+    //   setCumulativeCases(Positive_Cases_Cumulative[Positive_Cases_Cumulative.length - 1])
+    //   setCumulativeTests(Tests_Done_Cumulative[Tests_Done_Cumulative.length - 1])
+    //   setCaseData(graphData(results[0]["Dates"], 'Weekly Count', '#D12D4A', results[0]["Positive_Cases"]))
       
-      let rate = results[0]["Positive_Cases"]
-      rate = rate.map((num, idx) => (num/results[0]["Tests_Done"][idx] * 100).toFixed(2))
-      setPositiveRateData(graphData(results[0]["Dates"], 'Cumulative', '#d0c541', rate))
-    })
+    //   let rate = results[0]["Positive_Cases"]
+    //   rate = rate.map((num, idx) => (num/results[0]["Tests_Done"][idx] * 100).toFixed(2))
+    //   setPositiveRateData(graphData(results[0]["Dates"], 'Cumulative', '#d0c541', rate))
+    // })
 
     await axios.get('/api/fetch?url=https://recommender.thedp.com/covidtotal').then(resp => {
       const { data } = resp
@@ -164,7 +164,7 @@ const Tracker = () => {
             </p>
           )}
           <div className="row justify-content-center" style={{ marginTop: '1rem' }}>
-            <ButtonWrapper color="#D12D4A">
+            {/* <ButtonWrapper color="#D12D4A">
               <button
                 type="button"
                 className="btn btn-outline-secondary graph-button"
@@ -173,7 +173,7 @@ const Tracker = () => {
               >
                 Weekly Cases
               </button>
-            </ButtonWrapper>
+            </ButtonWrapper> */}
             <ButtonWrapper color="rgba(75,192,192,1)">
               <button
                 type="button"
@@ -184,7 +184,7 @@ const Tracker = () => {
                 Cumulative Cases
               </button>
             </ButtonWrapper>
-            <ButtonWrapper color="#d0c541">
+            {/* <ButtonWrapper color="#d0c541">
               <button
                 type="button"
                 className="btn btn-outline-secondary graph-button"
@@ -192,12 +192,12 @@ const Tracker = () => {
               >
                 Weekly Positivity Rates
               </button>
-            </ButtonWrapper>
+            </ButtonWrapper> */}
           </div>
         </div>
         <div className="col-md">
           <GraphSubtitle>CUMULATIVE CASE COUNT</GraphSubtitle>
-          <div class="row">
+          {/* <div class="row">
             <div class="col-auto">
               <GraphNumber noBorder> {cumulativeCases} Cases </GraphNumber>
               <GraphNumberBubble>
@@ -205,7 +205,7 @@ const Tracker = () => {
               </GraphNumberBubble>
             </div>
           </div>
-          Reported at Houston Hall
+          Reported at Houston Hall */}
           <div style={{ marginTop: '3rem' }}>
             <GraphNumber noBorder> {totalCases} Cases </GraphNumber>
             Reported by domestic and international students as of {moment(totalCasesDate, 'YYYY-MM-DD').format('MMMM D, YYYY')}
