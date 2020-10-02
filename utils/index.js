@@ -34,7 +34,8 @@ export const formatTimestamp = timestamp => {
 }
 
 export const getDuration = (timestamp, parseString) => {
-  const now = moment().subtract(16, 'hours')
   timestamp = timestamp.replace(' on', '').replace('Updated at ', '').replace('.', '')
   return moment(timestamp, parseString).fromNow()
 }
+
+export const getLastElem = arr => arr[arr.length - 1]

@@ -2,6 +2,7 @@ const express = require('express')
 const next = require('next')
 const axios = require('axios')
 const cheerio = require('cheerio')
+const parse = require('csv-parse/lib/sync')
 
 const dev = process.env.NODE_ENV !== 'production'
 const nextApp = next({ dev })
@@ -27,7 +28,36 @@ nextApp.prepare().then(() => {
     }
   })
 
-  app.use('/api/live-updates', (req, res) => {
+  app.use('/api/covid-data', async (_, res) => {
+    res.header('Access-Control-Allow-Origin', '*')
+    const GOOGLE_SPREADSHEET_URL = 'https://docs.google.com/spreadsheets/u/0/d/1j6-eZIkfcpJP5Imk0EZsoaru9HB5KhSWnVTVoWmiv0Y/export?format=csv&id=1j6-eZIkfcpJP5Imk0EZsoaru9HB5KhSWnVTVoWmiv0Y&gid=0'
+    const { data } = await axios.get(GOOGLE_SPREADSHEET_URL)
+    const covidData = parse(data, { columns: true, skip_empty_lines: true })
+
+    const dates = []
+    let cumulativeTestsNumber = 0
+    const weeklyCases = []
+    const cumulativeCases = []
+    const weeklyPositivity = []
+
+    covidData.forEach((record, idx) => {
+      const { date, test, positiveCase } = record
+      dates.push(date)
+      cumulativeTestsNumber += parseInt(test)
+      weeklyCases.push(parseInt(positiveCase))
+      weeklyPositivity.push((100 * parseFloat(positiveCase) / parseFloat(test)).toFixed(2))
+
+      if (idx === 0) {
+        cumulativeCases.push(parseInt(positiveCase))
+      } else {
+        cumulativeCases.push(parseInt(positiveCase) + parseInt(cumulativeCases[idx-1]))
+      }
+    })
+
+    res.status(200).json({ dates, cumulativeTestsNumber, weeklyCases, cumulativeCases, weeklyPositivity })
+  })
+
+  app.use('/api/live-updates', (_, res) => {
     const extractTimestamp = s => {
       const $ = cheerio.load(s)
       const timeElt = $('p').toArray()[0]
