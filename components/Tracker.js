@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import s from 'styled-components'
 import { Line } from 'react-chartjs-2'
-import moment from 'moment'
 import axios from 'axios'
 
 import { Title } from './shared'
@@ -110,9 +109,6 @@ const graphOptions = graphState => {
 const Tracker = () => {
   const [graphState, setGraphState] = useState('DAILY')
 
-  // dates for the data
-  const [dates, setDates] = useState([])
-
   // weekly cases
   const [weeklyCasesData, setWeeklyCasesData] = useState([])
 
@@ -144,17 +140,6 @@ const Tracker = () => {
       setCumulativeCasesNumber(getLastElem(cumulativeCases))
       setCumulativeTestsNumber(cumulativeTestsNumber)
     })
-    // await axios.get('/api/fetch?url=https://recommender.thedp.com/covid').then(resp => {
-    //   const { data: { results } } = resp
-    //   const [ { Tests_Done_Cumulative, Positive_Cases_Cumulative }, _ ] = results
-    //   setCumulativeCases(Positive_Cases_Cumulative[Positive_Cases_Cumulative.length - 1])
-    //   setCumulativeTests(Tests_Done_Cumulative[Tests_Done_Cumulative.length - 1])
-    //   setCaseData(graphData(results[0]["Dates"], 'Weekly Count', '#D12D4A', results[0]["Positive_Cases"]))
-      
-    //   let rate = results[0]["Positive_Cases"]
-    //   rate = rate.map((num, idx) => (num/results[0]["Tests_Done"][idx] * 100).toFixed(2))
-    //   setPositiveRateData(graphData(results[0]["Dates"], 'Cumulative', '#d0c541', rate))
-    // })
 
     // await axios.get('/api/fetch?url=https://recommender.thedp.com/covidtotal').then(resp => {
     //   const { data } = resp
@@ -169,10 +154,10 @@ const Tracker = () => {
       <div className="row">
         <div className="col-md-8" style= {{ textAlign: "center" }}>
           <GraphTitle>{graphState == 'DAILY' 
-            ? 'Positive COVID-19 Cases at Penn'
+            ? 'Weekly Positive COVID-19 Cases at Penn'
             : graphState == 'CUMULATIVE'
-              ? 'Confirmed/Probable COVID-19 Cases Among Penn Students'
-              : 'Positivity Rates at Penn'}
+              ? 'Cumulative Positive COVID-19 Cases at Penn'
+              : 'Weekly Positivity Rates at Penn'}
           </GraphTitle>
           <Line
             data={graphState == 'DAILY' 
@@ -182,11 +167,9 @@ const Tracker = () => {
                 : weeklyPositivityData}
             options={graphOptions(graphState)}
           />
-          {graphState !== 'CUMULATIVE' && (
-            <p style={{ fontSize: '90%', margin: '1rem 0' }}>
-              All data points represent statistics from the week ending in the specified date.
-            </p>
-          )}
+          <p style={{ fontSize: '90%', margin: '1rem 0' }}>
+            All data points represent statistics from the week ending in the specified date.
+          </p>
           <div className="row justify-content-center" style={{ marginTop: '1rem' }}>
             <ButtonWrapper color="#D12D4A">
               <button
@@ -221,19 +204,11 @@ const Tracker = () => {
         </div>
         <div className="col-md">
           <GraphSubtitle>CUMULATIVE CASE COUNT</GraphSubtitle>
-          <div class="row">
-            <div class="col-auto">
-              <GraphNumber noBorder> {cumulativeCasesNumber} Cases </GraphNumber>
-              <GraphNumberBubble>
-                <p>({Math.round(10000 * cumulativeCasesNumber / cumulativeTestsNumber) / 100}% positivity rate with <br /> {String(cumulativeTestsNumber).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} tests administered)</p>
-              </GraphNumberBubble>
-            </div>
-          </div>
-          Reported at Houston Hall
-          {/* <div style={{ marginTop: '3rem' }}>
-            <GraphNumber noBorder> {totalCases} Cases </GraphNumber>
-            Reported by domestic and international students as of {moment(totalCasesDate, 'YYYY-MM-DD').format('MMMM D, YYYY')}
-        </div> */}
+          <GraphNumber noBorder> {cumulativeCasesNumber} Cases </GraphNumber>
+          <GraphNumberBubble>
+            <p>({Math.round(10000 * cumulativeCasesNumber / cumulativeTestsNumber) / 100}% positivity rate with <br /> {String(cumulativeTestsNumber).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} tests administered)</p>
+          </GraphNumberBubble>
+          Reported at Houston Hall’s Hall of Flags
         </div>
       </div>
     </GraphWrapper>

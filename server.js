@@ -41,7 +41,8 @@ nextApp.prepare().then(() => {
     const weeklyPositivity = []
 
     covidData.forEach((record, idx) => {
-      const { date, test, positiveCase } = record
+      const { date, test } = record
+      const positiveCase = record['positive cases']
       dates.push(date)
       cumulativeTestsNumber += parseInt(test)
       weeklyCases.push(parseInt(positiveCase))
