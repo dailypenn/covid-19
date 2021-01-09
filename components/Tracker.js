@@ -151,6 +151,7 @@ const Tracker = () => {
 
   return (
     <GraphWrapper>
+      <Title> COVID-19 Tracker </Title>
       <div className="row">
         <div className="col-md-8" style= {{ textAlign: "center" }}>
           <GraphTitle>{graphState == 'DAILY' 

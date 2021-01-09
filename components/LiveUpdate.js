@@ -65,16 +65,16 @@ const LiveUpdate = ({ liveUpdates, loading }) => {
 
   return (
     <>
-      <Title> Live Updates <DurationText> {durationText} </DurationText></Title>
+      <Title> Weekly Updates <DurationText> {durationText} </DurationText></Title>
       {loading && (
         <>
           <div style={{ marginTop: '1rem', marginBottom: '1rem' }}>
-            <Skeleton count={5}/>
+            <Skeleton count={1}/>
           </div>
-          <Skeleton count={5}/>
+          <Skeleton count={1}/>
         </>
       )}
-      {liveUpdates && liveUpdates.map(({ title, content, timestamp }) => (
+      {liveUpdates && [liveUpdates[0]].map(({ title, content, timestamp }) => (
         <UpdateWrapper>
           {timestamp && <TimestampText> {formatTimestamp(timestamp)} </TimestampText>}
           <StyledLink

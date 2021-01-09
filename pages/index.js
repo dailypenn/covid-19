@@ -14,6 +14,7 @@ import StreetCenter from '../components/StreetCenter'
 import Map from '../components/Map'
 import Ad from '../components/Ad'
 import Tracker from '../components/Tracker'
+import TestingSite from '../components/TestingSite'
 
 import { Title, StyledLink } from '../components/shared'
 import StreetArticle from '../components/StreetArticle'
@@ -137,12 +138,14 @@ const Home = ({ latestStories }) => {
         <CoverImg src="/img/Covering-COVID.png" className="img-fluid" />
       </Background>
 
+      <TestingSite />
+
       <Tracker />
 
       <SectionDiv className="container" id="latest">
         <div className="row">
           <div className="col-md">
-            <Title> Latest Stories </Title>
+            <Title> Latest </Title>
             {latestStories && latestStories.map(article => <Article article={article} />)}
           </div>
           <div className="col-md">
