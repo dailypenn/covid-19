@@ -15,6 +15,7 @@ import Map from '../components/Map'
 import Ad from '../components/Ad'
 import Tracker from '../components/Tracker'
 import TestingSite from '../components/TestingSite'
+import Resource from '../components/Resource'
 
 import { Title, StyledLink } from '../components/shared'
 import StreetArticle from '../components/StreetArticle'
@@ -60,7 +61,7 @@ const UpdateLinkDiv = s.div`
   font-size: ${({ fontSize = '70%' }) => fontSize};
   color: #FFFFFF;
   width: ${({ width = '60%' }) => width};
-  margin: auto;
+  margin-left: auto;
   margin-top: 2rem;
   padding: 1rem 2rem;
   text-align: center;
@@ -150,6 +151,7 @@ const Home = ({ latestStories }) => {
           </div>
           <div className="col-md">
             <LiveUpdate liveUpdates={liveUpdates} loading={lvLoading} />
+            <Resource />
             <StyledLink href="https://www.thedp.com/section/covid" target="_blank">
               <UpdateLinkDiv className="updateLinkDiv">
                 For the full list of COVID-19 updates, click here
