@@ -32,28 +32,39 @@ const NumberCircle = s.div`
   line-height: 3rem;
   font-weight: 100;
   color: #FF0000;
+
+  @media screen and (max-width: 768px) {
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
 `
 
 const Resource = () => {
   //do .map later
+  let resources = [{title: 'Philadelphia mayor issues stay-at-home order to slow spread of coronavirus', link: ''}, {title: 'Philadelphia mayor issues stay-at-home order to slow spread of coronavirus', link: ''}, {title: 'Philadelphia mayor issues stay-at-home order to slow spread of coronavirus', link: ''}, {title: 'Philadelphia mayor issues stay-at-home order to slow spread of coronavirus', link: ''}, {title: 'Philadelphia mayor issues stay-at-home order to slow spread of coronavirus', link: ''}]
+  
   return (
     <>
       <Title> Resources </Title>
       <ContentIndent>
         <ResourceWrapper>
-          <div className="row">
-            <div className="col-2">
-              <NumberCircle>1</NumberCircle>
+          {resources.map(({ title, link }, idx) => (
+            <div className="row">
+              <div className="col-2">
+                <NumberCircle>{idx + 1}</NumberCircle>
+              </div>
+              <div className="col-10">
+                <StyledLink
+                  href={link}
+                  target="_blank"
+                >
+                  <ResourceTitle> {title}</ResourceTitle>
+                </StyledLink>
+              </div>
             </div>
-            <div className="col-10">
-              <StyledLink
-                href=""
-                target="_blank"
-              >
-                <ResourceTitle> Philadelphia mayor issues stay-at-home order to slow spread of coronavirus </ResourceTitle>
-              </StyledLink>
-            </div>
-          </div>
+          ))}
         </ResourceWrapper>
       </ContentIndent>
     </>

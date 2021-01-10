@@ -59,7 +59,7 @@ const LiveUpdate = ({ liveUpdates, loading }) => {
   let durationText = ''
 
   if (liveUpdates) {
-    const { timestamp } = liveUpdates[0]
+    const { timestamp} = liveUpdates[0]
     if (timestamp) durationText = `Last updated ${getDuration(timestamp, 'h:m a MMM D')}`
   }
 
@@ -75,18 +75,18 @@ const LiveUpdate = ({ liveUpdates, loading }) => {
         </>
       )}
       <ContentIndent>
-      {liveUpdates && [liveUpdates[0]].map(({ title, content, timestamp }) => (
-        <UpdateWrapper>
-          {timestamp && <TimestampText> {formatTimestamp2020(timestamp)} </TimestampText>}
-          <StyledLink
-            href={`https://www.thedp.com/article/2020/03/penn-coronavirus-live-updates#${title}`}
-            target="_blank"
-          >
-            <LiveUpdateTitle> {title} </LiveUpdateTitle>
-          </StyledLink>
-          <LiveUpdateText dangerouslySetInnerHTML={{ __html: content }} />
-        </UpdateWrapper>
-      ))}
+        {liveUpdates && (
+          <UpdateWrapper>
+            {liveUpdates[0].timestamp && <TimestampText> {formatTimestamp2020(liveUpdates[0].timestamp)} </TimestampText>}
+            <StyledLink
+              href={`https://www.thedp.com/article/2020/03/penn-coronavirus-live-updates#${liveUpdates[0].title}`}
+              target="_blank"
+            >
+              <LiveUpdateTitle> {liveUpdates[0].title} </LiveUpdateTitle>
+            </StyledLink>
+            <LiveUpdateText dangerouslySetInnerHTML={{ __html: liveUpdates[0].content }} />
+          </UpdateWrapper>
+        )}
       </ContentIndent>
     </>
   )
