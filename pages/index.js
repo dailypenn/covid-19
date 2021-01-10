@@ -68,7 +68,7 @@ const UpdateLinkDiv = s.div`
 `
 
 const GrayDiv = s.div`
-  padding-right: 45px;
+  padding-right: 3rem;
   border-right: 2px solid #F5F5F5;
 `
 
