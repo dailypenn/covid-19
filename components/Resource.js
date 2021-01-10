@@ -1,7 +1,7 @@
 import React from 'react'
 import s from 'styled-components'
 
-import { Title, StyledLink } from './shared'
+import { Title, StyledLink, ContentIndent } from './shared'
 import { LIBRE_BOLD } from '../utils/font'
 
 const ResourceWrapper = s.div`
@@ -39,21 +39,23 @@ const Resource = () => {
   return (
     <>
       <Title> Resources </Title>
-      <ResourceWrapper>
-        <div className="row">
-          <div className="col-2">
-            <NumberCircle>1</NumberCircle>
+      <ContentIndent>
+        <ResourceWrapper>
+          <div className="row">
+            <div className="col-2">
+              <NumberCircle>1</NumberCircle>
+            </div>
+            <div className="col-10">
+              <StyledLink
+                href=""
+                target="_blank"
+              >
+                <ResourceTitle> Philadelphia mayor issues stay-at-home order to slow spread of coronavirus </ResourceTitle>
+              </StyledLink>
+            </div>
           </div>
-          <div className="col-10">
-            <StyledLink
-              href=""
-              target="_blank"
-            >
-              <ResourceTitle> Philadelphia mayor issues stay-at-home order to slow spread of coronavirus </ResourceTitle>
-            </StyledLink>
-          </div>
-        </div>
-      </ResourceWrapper>
+        </ResourceWrapper>
+      </ContentIndent>
     </>
   )
 }

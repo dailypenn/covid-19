@@ -17,7 +17,7 @@ import Tracker from '../components/Tracker'
 import TestingSite from '../components/TestingSite'
 import Resource from '../components/Resource'
 
-import { Title, StyledLink } from '../components/shared'
+import { Title, StyledLink, ContentIndent } from '../components/shared'
 import StreetArticle from '../components/StreetArticle'
 import { initGA, logPageView } from '../utils/analytics'
 import { LIBRE_BOLD } from '../utils/font'
@@ -65,6 +65,11 @@ const UpdateLinkDiv = s.div`
   margin-top: 2rem;
   padding: 1rem 2rem;
   text-align: center;
+`
+
+const GrayDiv = s.div`
+  padding-right: 45px;
+  border-right: 2px solid #F5F5F5;
 `
 
 const Home = ({ latestStories }) => {
@@ -147,7 +152,11 @@ const Home = ({ latestStories }) => {
         <div className="row">
           <div className="col-md">
             <Title> Latest </Title>
-            {latestStories && latestStories.map(article => <Article article={article} />)}
+            <GrayDiv>
+              <ContentIndent>
+                {latestStories && latestStories.map(article => <Article article={article} />)}
+              </ContentIndent>
+            </GrayDiv>
           </div>
           <div className="col-md">
             <LiveUpdate liveUpdates={liveUpdates} loading={lvLoading} />
@@ -161,7 +170,7 @@ const Home = ({ latestStories }) => {
         </div>
       </SectionDiv>
 
-      <Map />
+      {/* <Map /> */}
 
       <NewsLetter />
 

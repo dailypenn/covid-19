@@ -1,17 +1,20 @@
 import React from 'react'
 import s from 'styled-components'
 
-import { Title } from '../components/shared'
+import { Title, ContentIndent } from '../components/shared'
 
 
-const TrackingSiteWrapper = s.div`
+const TestingSiteWrapper = s.div`
   margin: 4rem 10rem;
 `
 
 const TestingSite = () => (
-  <TrackingSiteWrapper>
+  <TestingSiteWrapper>
    <Title> Testing Sites at Penn </Title>
-  </TrackingSiteWrapper>
+   <ContentIndent>
+     {/* stuff for map here */}
+   </ContentIndent>
+  </TestingSiteWrapper>
 )
 
 export default TestingSite

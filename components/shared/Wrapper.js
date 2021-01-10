@@ -24,3 +24,7 @@ export const NavbarWrapper = s.nav`
   position: fixed;
   z-index: 1;
 `
+
+export const ContentIndent = s.div`
+  padding-left: 2rem;
+`

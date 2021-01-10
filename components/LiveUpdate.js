@@ -1,9 +1,9 @@
 import Skeleton from 'react-loading-skeleton'
 import s from 'styled-components'
 
-import { formatTimestamp, getDuration } from '../utils'
+import { formatTimestamp2020, getDuration } from '../utils'
 import { ROBOTO_BOLD, LIBRE_BOLD } from '../utils/font'
-import { Title, StyledLink } from '../components/shared'
+import { Title, StyledLink, ContentIndent } from '../components/shared'
 
 const UpdateWrapper = s.div`
   margin-top: 1rem;
@@ -74,9 +74,10 @@ const LiveUpdate = ({ liveUpdates, loading }) => {
           <Skeleton count={1}/>
         </>
       )}
+      <ContentIndent>
       {liveUpdates && [liveUpdates[0]].map(({ title, content, timestamp }) => (
         <UpdateWrapper>
-          {timestamp && <TimestampText> {formatTimestamp(timestamp)} </TimestampText>}
+          {timestamp && <TimestampText> {formatTimestamp2020(timestamp)} </TimestampText>}
           <StyledLink
             href={`https://www.thedp.com/article/2020/03/penn-coronavirus-live-updates#${title}`}
             target="_blank"
@@ -86,6 +87,7 @@ const LiveUpdate = ({ liveUpdates, loading }) => {
           <LiveUpdateText dangerouslySetInnerHTML={{ __html: content }} />
         </UpdateWrapper>
       ))}
+      </ContentIndent>
     </>
   )
 }

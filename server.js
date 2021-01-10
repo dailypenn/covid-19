@@ -61,7 +61,6 @@ nextApp.prepare().then(() => {
   app.use('/api/live-updates', (_, res) => {
     const extractTimestamp = s => {
       const $ = cheerio.load(s)
-      console.log($.html())
       const timeElt = $('p').toArray()[0]
       const contentElt = $('p').toArray()[1]
       const contentHTML = $.html(contentElt)

@@ -28,9 +28,9 @@ export const parseMultimediaString = s => {
   return s.substring(idx + 1)
 }
 
-export const formatTimestamp = timestamp => {
+export const formatTimestamp2020 = timestamp => {
   const timeString = timestamp.replace(' on', '').replace('Updated at ', '').replace('.', '')
-  return moment(timeString, 'h:m a MMM D').format('MMMM D, YYYY (h:mmA)').toUpperCase()
+  return moment(timeString, 'h:m a MMM D').format('MMMM D, 2020 (h:mmA)').toUpperCase()
 }
 
 export const getDuration = (timestamp, parseString) => {
