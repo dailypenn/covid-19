@@ -6,6 +6,10 @@ import { Title, ContentIndent } from '../components/shared'
 
 const TestingSiteWrapper = s.div`
   margin: 4rem 10rem;
+  @media (max-width: 768px) {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
 `
 
 const TestingSite = () => (

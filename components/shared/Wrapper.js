@@ -27,4 +27,7 @@ export const NavbarWrapper = s.nav`
 
 export const ContentIndent = s.div`
   padding-left: 2rem;
+  @media (max-width: 768px) {
+    padding-left: 0rem;
+  }
 `

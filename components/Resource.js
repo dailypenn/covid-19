@@ -7,8 +7,12 @@ import { LIBRE_BOLD } from '../utils/font'
 const ResourceWrapper = s.div`
   margin-top: 1rem;
   background: #F5F5F5;
-  padding: 5rem 2rem;
+  padding: 1rem 2rem;
   margin-bottom: 2rem;
+`
+
+const ResourceIndivWrapper = s.div`
+  padding-top: 1rem
 `
 const ResourceTitle = s.h5`
   ${LIBRE_BOLD}
@@ -75,16 +79,18 @@ const Resource = () => (
     <ContentIndent>
       <ResourceWrapper>
         {resources.map(({ title, link }, idx) => (
-          <div className="row">
-            <div className="col-2">
-              <NumberCircle> {idx + 1} </NumberCircle>
+          <ResourceIndivWrapper>
+            <div className="row">
+              <div className="col-2">
+                <NumberCircle> {idx + 1} </NumberCircle>
+              </div>
+              <div className="col-10">
+                <StyledLink href={link} target="_blank">
+                  <ResourceTitle> {title} </ResourceTitle>
+                </StyledLink>
+              </div>
             </div>
-            <div className="col-10">
-              <StyledLink href={link} target="_blank">
-                <ResourceTitle> {title} </ResourceTitle>
-              </StyledLink>
-            </div>
-          </div>
+          </ResourceIndivWrapper>
         ))}
       </ResourceWrapper>
     </ContentIndent>
