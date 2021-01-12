@@ -41,7 +41,33 @@ const NumberCircle = s.div`
   }
 `
 
-const resources = [{title: 'Philadelphia mayor issues stay-at-home order to slow spread of coronavirus', link: ''}, {title: 'Philadelphia mayor issues stay-at-home order to slow spread of coronavirus', link: ''}, {title: 'Philadelphia mayor issues stay-at-home order to slow spread of coronavirus', link: ''}, {title: 'Philadelphia mayor issues stay-at-home order to slow spread of coronavirus', link: ''}, {title: 'Philadelphia mayor issues stay-at-home order to slow spread of coronavirus', link: ''}]
+const resources = [
+  {
+    title:
+      'Philadelphia mayor issues stay-at-home order to slow spread of coronavirus',
+    link: ''
+  },
+  {
+    title:
+      'Philadelphia mayor issues stay-at-home order to slow spread of coronavirus',
+    link: ''
+  },
+  {
+    title:
+      'Philadelphia mayor issues stay-at-home order to slow spread of coronavirus',
+    link: ''
+  },
+  {
+    title:
+      'Philadelphia mayor issues stay-at-home order to slow spread of coronavirus',
+    link: ''
+  },
+  {
+    title:
+      'Philadelphia mayor issues stay-at-home order to slow spread of coronavirus',
+    link: ''
+  }
+]
 
 const Resource = () => (
   <>
@@ -54,10 +80,7 @@ const Resource = () => (
               <NumberCircle> {idx + 1} </NumberCircle>
             </div>
             <div className="col-10">
-              <StyledLink
-                href={link}
-                target="_blank"
-              >
+              <StyledLink href={link} target="_blank">
                 <ResourceTitle> {title} </ResourceTitle>
               </StyledLink>
             </div>
