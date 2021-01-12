@@ -14,8 +14,10 @@ import StreetCenter from '../components/StreetCenter'
 import Map from '../components/Map'
 import Ad from '../components/Ad'
 import Tracker from '../components/Tracker'
+import TestingSite from '../components/TestingSite'
+import Resource from '../components/Resource'
 
-import { Title, StyledLink } from '../components/shared'
+import { Title, StyledLink, ContentIndent } from '../components/shared'
 import StreetArticle from '../components/StreetArticle'
 import { initGA, logPageView } from '../utils/analytics'
 import { LIBRE_BOLD } from '../utils/font'
@@ -59,10 +61,15 @@ const UpdateLinkDiv = s.div`
   font-size: ${({ fontSize = '70%' }) => fontSize};
   color: #FFFFFF;
   width: ${({ width = '60%' }) => width};
-  margin: auto;
+  margin-left: auto;
   margin-top: 2rem;
   padding: 1rem 2rem;
   text-align: center;
+`
+
+const GrayDiv = s.div`
+  padding-right: 3rem;
+  border-right: 2px solid #F5F5F5;
 `
 
 const Home = ({ latestStories }) => {
@@ -75,6 +82,7 @@ const Home = ({ latestStories }) => {
   const [sportsCenterpiece, setSportsCenterpiece] = useState(null)
   const [sportsArticles, setSportsArticles] = useState(null)
   const [multimediaArticles, setMultimediaArticles] = useState(null)
+
 
   const [lvLoading, setLVLoading] = useState(true)
   const [newsLoading, setNewsLoading] = useState(true)
@@ -137,16 +145,23 @@ const Home = ({ latestStories }) => {
         <CoverImg src="/img/Covering-COVID.png" className="img-fluid" />
       </Background>
 
+      <TestingSite />
+
       <Tracker />
 
       <SectionDiv className="container" id="latest">
         <div className="row">
           <div className="col-md">
-            <Title> Latest Stories </Title>
-            {latestStories && latestStories.map(article => <Article article={article} />)}
+            <Title> Latest </Title>
+            <GrayDiv>
+              <ContentIndent>
+                {latestStories && latestStories.map(article => <Article article={article} />)}
+              </ContentIndent>
+            </GrayDiv>
           </div>
           <div className="col-md">
             <LiveUpdate liveUpdates={liveUpdates} loading={lvLoading} />
+            <Resource />
             <StyledLink href="https://www.thedp.com/section/covid" target="_blank">
               <UpdateLinkDiv className="updateLinkDiv">
                 For the full list of COVID-19 updates, click here
@@ -156,7 +171,7 @@ const Home = ({ latestStories }) => {
         </div>
       </SectionDiv>
 
-      <Map />
+      {/* <Map /> */}
 
       <NewsLetter />
 

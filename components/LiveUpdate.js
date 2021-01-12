@@ -1,9 +1,9 @@
 import Skeleton from 'react-loading-skeleton'
 import s from 'styled-components'
 
-import { formatTimestamp, getDuration } from '../utils'
+import { formatTimestamp2020, getDuration } from '../utils'
 import { ROBOTO_BOLD, LIBRE_BOLD } from '../utils/font'
-import { Title, StyledLink } from '../components/shared'
+import { Title, StyledLink, ContentIndent } from '../components/shared'
 
 const UpdateWrapper = s.div`
   margin-top: 1rem;
@@ -65,27 +65,29 @@ const LiveUpdate = ({ liveUpdates, loading }) => {
 
   return (
     <>
-      <Title> Live Updates <DurationText> {durationText} </DurationText></Title>
+      <Title> Weekly Updates <DurationText> {durationText} </DurationText></Title>
       {loading && (
         <>
           <div style={{ marginTop: '1rem', marginBottom: '1rem' }}>
-            <Skeleton count={5}/>
+            <Skeleton count={1}/>
           </div>
-          <Skeleton count={5}/>
+          <Skeleton count={1}/>
         </>
       )}
-      {liveUpdates && liveUpdates.map(({ title, content, timestamp }) => (
-        <UpdateWrapper>
-          {timestamp && <TimestampText> {formatTimestamp(timestamp)} </TimestampText>}
-          <StyledLink
-            href={`https://www.thedp.com/article/2020/03/penn-coronavirus-live-updates#${title}`}
-            target="_blank"
-          >
-            <LiveUpdateTitle> {title} </LiveUpdateTitle>
-          </StyledLink>
-          <LiveUpdateText dangerouslySetInnerHTML={{ __html: content }} />
-        </UpdateWrapper>
-      ))}
+      <ContentIndent>
+        {liveUpdates && (
+          <UpdateWrapper>
+            {liveUpdates[0].timestamp && <TimestampText> {formatTimestamp2020(liveUpdates[0].timestamp)} </TimestampText>}
+            <StyledLink
+              href={`https://www.thedp.com/article/2020/03/penn-coronavirus-live-updates#${liveUpdates[0].title}`}
+              target="_blank"
+            >
+              <LiveUpdateTitle> {liveUpdates[0].title} </LiveUpdateTitle>
+            </StyledLink>
+            <LiveUpdateText dangerouslySetInnerHTML={{ __html: liveUpdates[0].content }} />
+          </UpdateWrapper>
+        )}
+      </ContentIndent>
     </>
   )
 }
