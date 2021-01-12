@@ -41,34 +41,31 @@ const NumberCircle = s.div`
   }
 `
 
-const Resource = () => {
-  //do .map later
-  let resources = [{title: 'Philadelphia mayor issues stay-at-home order to slow spread of coronavirus', link: ''}, {title: 'Philadelphia mayor issues stay-at-home order to slow spread of coronavirus', link: ''}, {title: 'Philadelphia mayor issues stay-at-home order to slow spread of coronavirus', link: ''}, {title: 'Philadelphia mayor issues stay-at-home order to slow spread of coronavirus', link: ''}, {title: 'Philadelphia mayor issues stay-at-home order to slow spread of coronavirus', link: ''}]
-  
-  return (
-    <>
-      <Title> Resources </Title>
-      <ContentIndent>
-        <ResourceWrapper>
-          {resources.map(({ title, link }, idx) => (
-            <div className="row">
-              <div className="col-2">
-                <NumberCircle>{idx + 1}</NumberCircle>
-              </div>
-              <div className="col-10">
-                <StyledLink
-                  href={link}
-                  target="_blank"
-                >
-                  <ResourceTitle> {title}</ResourceTitle>
-                </StyledLink>
-              </div>
+const resources = [{title: 'Philadelphia mayor issues stay-at-home order to slow spread of coronavirus', link: ''}, {title: 'Philadelphia mayor issues stay-at-home order to slow spread of coronavirus', link: ''}, {title: 'Philadelphia mayor issues stay-at-home order to slow spread of coronavirus', link: ''}, {title: 'Philadelphia mayor issues stay-at-home order to slow spread of coronavirus', link: ''}, {title: 'Philadelphia mayor issues stay-at-home order to slow spread of coronavirus', link: ''}]
+
+const Resource = () => (
+  <>
+    <Title> Resources </Title>
+    <ContentIndent>
+      <ResourceWrapper>
+        {resources.map(({ title, link }, idx) => (
+          <div className="row">
+            <div className="col-2">
+              <NumberCircle> {idx + 1} </NumberCircle>
             </div>
-          ))}
-        </ResourceWrapper>
-      </ContentIndent>
-    </>
-  )
-}
+            <div className="col-10">
+              <StyledLink
+                href={link}
+                target="_blank"
+              >
+                <ResourceTitle> {title} </ResourceTitle>
+              </StyledLink>
+            </div>
+          </div>
+        ))}
+      </ResourceWrapper>
+    </ContentIndent>
+  </>
+)
 
 export default Resource

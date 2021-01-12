@@ -59,7 +59,7 @@ const LiveUpdate = ({ liveUpdates, loading }) => {
   let durationText = ''
 
   if (liveUpdates) {
-    const { timestamp} = liveUpdates[0]
+    const { timestamp } = liveUpdates[0]
     if (timestamp) durationText = `Last updated ${getDuration(timestamp, 'h:m a MMM D')}`
   }
 
