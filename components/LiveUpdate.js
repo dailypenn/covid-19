@@ -60,22 +60,26 @@ const LiveUpdate = ({ liveUpdates, loading }) => {
 
   if (liveUpdates) {
     const { timestamp } = liveUpdates[0]
-    if (timestamp) durationText = `Last updated ${getDuration(timestamp, 'h:m a MMM D')}`
+    if (timestamp)
+      durationText = `Last updated ${getDuration(timestamp, 'h:m a MMM D')}`
   }
 
   return (
     <>
-      <Title> Weekly Updates <DurationText> {durationText} </DurationText></Title>
+      <Title>
+        {' '}
+        Weekly Updates <DurationText> {durationText} </DurationText>
+      </Title>
       {loading && (
         <>
           <div style={{ marginTop: '1rem', marginBottom: '1rem' }}>
-            <Skeleton count={1}/>
+            <Skeleton count={5} />
           </div>
-          <Skeleton count={1}/>
+          <Skeleton count={5} />
         </>
       )}
       <ContentIndent>
-        {liveUpdates && (
+        {/* {liveUpdates && (
           <UpdateWrapper>
             {liveUpdates[0].timestamp && <TimestampText> {formatTimestamp2020(liveUpdates[0].timestamp)} </TimestampText>}
             <StyledLink
@@ -86,7 +90,25 @@ const LiveUpdate = ({ liveUpdates, loading }) => {
             </StyledLink>
             <LiveUpdateText dangerouslySetInnerHTML={{ __html: liveUpdates[0].content }} />
           </UpdateWrapper>
-        )}
+        )} */}
+        {liveUpdates &&
+          liveUpdates.map(({ title, content, timestamp }) => (
+            <UpdateWrapper>
+              {timestamp && (
+                <TimestampText>
+                  {' '}
+                  {formatTimestamp2020(timestamp)}{' '}
+                </TimestampText>
+              )}
+              <StyledLink
+                href={`https://www.thedp.com/article/2020/03/penn-coronavirus-live-updates#${title}`}
+                target="_blank"
+              >
+                <LiveUpdateTitle> {title} </LiveUpdateTitle>
+              </StyledLink>
+              <LiveUpdateText dangerouslySetInnerHTML={{ __html: content }} />
+            </UpdateWrapper>
+          ))}
       </ContentIndent>
     </>
   )
