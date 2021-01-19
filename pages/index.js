@@ -61,7 +61,7 @@ const UpdateLinkDiv = s.div`
   font-size: ${({ fontSize = '70%' }) => fontSize};
   color: #FFFFFF;
   width: ${({ width = '60%' }) => width};
-  margin-left: auto;
+  margin: auto;
   margin-top: 2rem;
   padding: 1rem 2rem;
   text-align: center;

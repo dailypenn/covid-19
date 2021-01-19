@@ -11,8 +11,8 @@ const GraphWrapper = s.div`
   margin: 4rem 10rem;
   color: #707070;
   @media (max-width: 768px) {
-    margin-left: 2rem;
-    margin-right: 2rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
   }
 `
 
