@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "NODE_ENV=production node server.js"
+    "start": "NODE_ENV=production node server.js",
+    "deploy": "git push heroku master"
   },
   "dependencies": {
     "axios": "^0.19.2",
