@@ -209,7 +209,7 @@ const Tracker = () => {
             <GraphNumberBubble>
               <p>({Math.round(10000 * cumulativeCasesNumber / cumulativeTestsNumber) / 100}% positivity rate with <br /> {String(cumulativeTestsNumber).replace(/\B(?=(\d{3})+(?!\d))/g, ",")} tests administered)</p>
             </GraphNumberBubble>
-            Reported at Houston Hall’s Hall of Flags
+            Source: Penn COVID-19 Dashboard
           </div>
         </div>
       </ContentIndent>
