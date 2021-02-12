@@ -1,7 +1,7 @@
 import Skeleton from 'react-loading-skeleton'
 import s from 'styled-components'
 
-import { formatTimestamp2020, getDuration } from '../utils'
+import { formatTimestamp2020, formatTimestamp2021, getDuration } from '../utils'
 import { ROBOTO_BOLD, LIBRE_BOLD } from '../utils/font'
 import { Title, StyledLink, ContentIndent } from '../components/shared'
 
@@ -92,21 +92,22 @@ const LiveUpdate = ({ liveUpdates, loading }) => {
           </UpdateWrapper>
         )} */}
         {liveUpdates &&
-          liveUpdates.map(({ title, content, timestamp }) => (
+          liveUpdates.map(({ title, content, timestamp, link }) => (
             <UpdateWrapper>
               {timestamp && (
                 <TimestampText>
                   {' '}
-                  {formatTimestamp2020(timestamp)}{' '}
+                  {/*formatTimestamp2020*/ formatTimestamp2021(timestamp)}{' '}
                 </TimestampText>
               )}
               <StyledLink
-                href={`https://www.thedp.com/article/2020/03/penn-coronavirus-live-updates#${title}`}
+                href={/*`https://www.thedp.com/article/2020/03/penn-coronavirus-live-updates#${title}`*/ link}
                 target="_blank"
               >
                 <LiveUpdateTitle> {title} </LiveUpdateTitle>
               </StyledLink>
-              <LiveUpdateText dangerouslySetInnerHTML={{ __html: content }} />
+              {/*<LiveUpdateText dangerouslySetInnerHTML={{ __html: content }} />*/}
+              <LiveUpdateText>{content}</LiveUpdateText>
             </UpdateWrapper>
           ))}
       </ContentIndent>

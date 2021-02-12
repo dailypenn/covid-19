@@ -33,6 +33,11 @@ export const formatTimestamp2020 = timestamp => {
   return moment(timeString, 'h:m a MMM D').format('MMMM D, 2020 (h:mmA)').toUpperCase()
 }
 
+export const formatTimestamp2021 = timestamp => {
+  const timeString = timestamp.replace(' on', '').replace('Updated at ', '').replace('.', '')
+  return moment(timeString, 'h:m a MMM D').format('MMMM D, 2021 (h:mmA)').toUpperCase()
+}
+
 export const getDuration = (timestamp, parseString) => {
   timestamp = timestamp.replace(' on', '').replace('Updated at ', '').replace('.', '')
   return moment(timestamp, parseString).fromNow()
