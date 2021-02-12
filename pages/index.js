@@ -77,7 +77,6 @@ const liveUpdateArticles = [
     title: "Penn's COVID-19 spring testing operation, explained",
     content:
       'To limit the spread of the virus, the University is launching the Penn Cares COVID-19 response program, which requires undergraduates to get tested for COVID-19 twice per week at one of several locations on campus.',
-    timestamp: 'Updated at 3:40 p.m. on Jan. 19.',
     link:
       'https://www.thedp.com/article/2021/01/penn-spring-covid-19-testing-explainer',
   },
@@ -85,7 +84,6 @@ const liveUpdateArticles = [
     title: 'On campus this semester? These buildings are open to students.',
     content:
       'Many University buildings have expanded their hours and on-site offerings to account for the larger number of students living on campus.',
-    timestamp: 'Updated at 9:52 p.m. on Jan. 19.',
     link:
       'https://www.thedp.com/article/2021/01/penn-spring-semester-campus-facilities-open-covid',
   },
@@ -93,7 +91,6 @@ const liveUpdateArticles = [
     title: "Here's what you need to know about housing and dining this spring",
     content:
       'As more than 3,000 undergraduate students move in to their on-campus residences, here’s everything you need to know about changes to housing and dining this spring.',
-    timestamp: 'Updated at 11:39 p.m. on Jan. 16.',
     link:
       'https://www.thedp.com/article/2021/01/spring-2021-housing-dining-upenn-covid',
   },

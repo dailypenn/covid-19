@@ -56,19 +56,19 @@ const DurationText = s.text`
 `
 
 const LiveUpdate = ({ liveUpdates/*, loading*/ }) => {
-  let durationText = ''
+  /*let durationText = ''*/
 
-  if (liveUpdates) {
+  /*if (liveUpdates) {
     const { timestamp } = liveUpdates[0]
     if (timestamp)
       durationText = `Last updated ${getDuration(timestamp, 'h:m a MMM D')}`
-  }
+  }*/
 
   return (
     <>
       <Title>
         {' '}
-        Weekly Updates <DurationText> {durationText} </DurationText>
+        Weekly Updates {/*<DurationText> {durationText} </DurationText>*/}
       </Title>
       {/*loading && (
         <>
