@@ -1,4 +1,4 @@
-import Skeleton from 'react-loading-skeleton'
+/*import Skeleton from 'react-loading-skeleton'*/
 import s from 'styled-components'
 
 import { formatTimestamp2020, formatTimestamp2021, getDuration } from '../utils'
@@ -55,7 +55,7 @@ const DurationText = s.text`
   }
 `
 
-const LiveUpdate = ({ liveUpdates, loading }) => {
+const LiveUpdate = ({ liveUpdates/*, loading*/ }) => {
   let durationText = ''
 
   if (liveUpdates) {
@@ -70,14 +70,14 @@ const LiveUpdate = ({ liveUpdates, loading }) => {
         {' '}
         Weekly Updates <DurationText> {durationText} </DurationText>
       </Title>
-      {loading && (
+      {/*loading && (
         <>
           <div style={{ marginTop: '1rem', marginBottom: '1rem' }}>
             <Skeleton count={5} />
           </div>
           <Skeleton count={5} />
         </>
-      )}
+      )*/}
       <ContentIndent>
         {/* {liveUpdates && (
           <UpdateWrapper>
@@ -92,14 +92,14 @@ const LiveUpdate = ({ liveUpdates, loading }) => {
           </UpdateWrapper>
         )} */}
         {liveUpdates &&
-          liveUpdates.map(({ title, content, timestamp, link }) => (
+          liveUpdates.map(({ title, content, /*timestamp,*/ link }) => (
             <UpdateWrapper>
-              {timestamp && (
+              {/*timestamp && (
                 <TimestampText>
                   {' '}
-                  {/*formatTimestamp2020*/ formatTimestamp2021(timestamp)}{' '}
+                  {formatTimestamp2020(timestamp)}{' '}
                 </TimestampText>
-              )}
+              )*/}
               <StyledLink
                 href={/*`https://www.thedp.com/article/2020/03/penn-coronavirus-live-updates#${title}`*/ link}
                 target="_blank"
@@ -107,7 +107,7 @@ const LiveUpdate = ({ liveUpdates, loading }) => {
                 <LiveUpdateTitle> {title} </LiveUpdateTitle>
               </StyledLink>
               {/*<LiveUpdateText dangerouslySetInnerHTML={{ __html: content }} />*/}
-              <LiveUpdateText>{content}</LiveUpdateText>
+              <LiveUpdateText> {content} </LiveUpdateText>
             </UpdateWrapper>
           ))}
       </ContentIndent>

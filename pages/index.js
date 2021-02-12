@@ -100,7 +100,7 @@ const liveUpdateArticles = [
 ]
 
 const Home = ({ latestStories }) => {
-  const [liveUpdates, setLiveUpdates] = useState(null)
+  /*const [liveUpdates, setLiveUpdates] = useState(null)*/
   const [newsCenterpiece, setNewsCenterpiece] = useState(null)
   const [newsArticles, setNewsArticles] = useState(null)
   const [opinionCenterpiece, setOpinionCenterpiece] = useState(null)
@@ -111,7 +111,7 @@ const Home = ({ latestStories }) => {
   const [multimediaArticles, setMultimediaArticles] = useState(null)
 
 
-  const [lvLoading, setLVLoading] = useState(true)
+  /*const [lvLoading, setLVLoading] = useState(true)*/
   const [newsLoading, setNewsLoading] = useState(true)
   const [mmloading, setMMLoading] = useState(true)
   const [opinionLoading, setOpinionLoading] = useState(true)
@@ -122,11 +122,11 @@ const Home = ({ latestStories }) => {
     initGA()
     logPageView()
 
-    await axios.get('/api/live-updates').then(resp => {
+    /*await axios.get('/api/live-updates').then(resp => {
       const { data } = resp
       setLiveUpdates(data)
       setLVLoading(false)
-    })
+    })*/
 
     await axios.get('/api/fetch?url=https://www.thedp.com/section/news-covid.json').then(resp => {
       const { data } = resp
@@ -187,7 +187,7 @@ const Home = ({ latestStories }) => {
             </GrayDiv>
           </div>
           <div className="col-md">
-            <LiveUpdate liveUpdates={liveUpdateArticles} loading={lvLoading} />
+            <LiveUpdate liveUpdates={liveUpdateArticles} /*loading={lvLoading}*/ />
             {/* <Resource /> */}
             <StyledLink href="https://www.thedp.com/section/covid" target="_blank">
               <UpdateLinkDiv className="updateLinkDiv">
