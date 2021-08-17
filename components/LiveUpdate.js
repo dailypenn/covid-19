@@ -68,7 +68,7 @@ const LiveUpdate = ({ liveUpdates/*, loading*/ }) => {
     <>
       <Title>
         {' '}
-        Penn’s spring semester, explained {/*<DurationText> {durationText} </DurationText>*/}
+        Penn’s fall semester, explained {/*<DurationText> {durationText} </DurationText>*/}
       </Title>
       {/*loading && (
         <>

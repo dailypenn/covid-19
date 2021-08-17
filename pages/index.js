@@ -169,7 +169,7 @@ const Home = ({ latestStories }) => {
         <CoverImg src="/img/Covering-COVID.png" className="img-fluid" />
       </Background>
 
-      <TestingSite />
+      {/* <TestingSite /> */}
 
       <Tracker />
 

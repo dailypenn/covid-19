@@ -41,9 +41,9 @@ const NavBar = () => {
           <li className="nav-item active">
             <a className="nav-link" href="#latest"> <NavText> Latest Stories </NavText></a>
           </li>
-          <li className="nav-item">
+          {/* <li className="nav-item">
             <a className="nav-link" href="#latest"> <NavText> Live Update </NavText></a>
-          </li>
+          </li> */}
           <li className="nav-item">
             <a className="nav-link" href="#news"> <NavText> News</NavText> </a>
           </li>
