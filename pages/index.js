@@ -172,6 +172,7 @@ const Home = ({ latestStories }) => {
       {/* <TestingSite /> */}
 
       <Tracker />
+      <Tracker />
 
       <SectionDiv className="container" id="latest">
         <div className="row">
